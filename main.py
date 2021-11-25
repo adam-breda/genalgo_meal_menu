@@ -2,17 +2,31 @@ import numpy as np
 import numpy.core.defchararray as npc
 from random import randint
 import matplotlib.pyplot as plt
+import pandas as pd
 
 """
 master data makanan, berupa list dua dimensi, dimensi pertama adalah jenis makanan yaitu buah,
 karbohidrat dan lauk. Kemudian dimensi kedua adalah terdiri dari binary sebagai indetifikasi gen,
 nama makanan dan jumlah kalori
 """
-data_makanan = np.array([
-    [["00", "Apel", 52], ["01", "Pisang", 89], ["10", "Mangga", 60], ["11", "Semangka", 30],['11','Asparagus', 2]],
-    [["00", "Roti", 265], ["01", "Kentang", 87], ["10", "Jagung", 86], ["11", "Ketela", 159]],
-    [["00", "Ikan", 206], ["01", "Daging Sapi", 143], ["10", "Ayam", 239], ["11", "Telur", 155]]
-])
+# data_makanan = np.array([
+#     [["00", "Apel", 52], ["01", "Pisang", 89], ["10", "Mangga", 60], ["11", "Semangka", 30]],
+#     [["00", "Roti", 265], ["01", "Kentang", 87], ["10", "Jagung", 86], ["11", "Ketela", 159]],
+#     [["00", "Ikan", 206], ["01", "Daging Sapi", 143], ["10", "Ayam", 239], ["11", "Telur", 155]]
+# ])
+
+data_fruit = pd.read_csv("fruits.csv",dtype={"gen":str}).to_numpy()
+data_carbo = pd.read_csv("carbohydrate.csv",dtype={"gen":str}).to_numpy()
+data_meat = pd.read_csv("meat.csv",dtype={"gen":str}).to_numpy()
+
+if(len(data_carbo)<len(data_meat) and len(data_carbo)<len(data_fruit)):
+    max_data_length = len(data_carbo)
+elif(len(data_meat)<len(data_fruit)):
+    max_data_length = len(data_meat)
+else:
+    max_data_length = len(data_fruit)
+
+data_makanan = np.array([data_fruit[:max_data_length],data_carbo[:max_data_length],data_meat[:max_data_length]])
 
 # maks_kalori = int(500);
 # probabilitas_kawin = int(70)
@@ -58,6 +72,7 @@ individu tersebut dinyatakan kurang fit. jika kurang dari 500 maka diberikan sko
 def dibawah_kalori_maksimal(menu_sekali_makan, maks_kalori):
     # cari kalori buah
     buah, cols = np.where(data_makanan[0] == menu_sekali_makan[0])
+    print("Int Buah: ",buah)
     kalori_buah = int(data_makanan[0][buah, 2][0])
     
     # cari kalori karbo
