@@ -9,7 +9,7 @@ karbohidrat dan lauk. Kemudian dimensi kedua adalah terdiri dari binary sebagai 
 nama makanan dan jumlah kalori
 """
 data_makanan = np.array([
-    [["00", "Apel", 52], ["01", "Pisang", 89], ["10", "Mangga", 60], ["11", "Semangka", 30]],
+    [["00", "Apel", 52], ["01", "Pisang", 89], ["10", "Mangga", 60], ["11", "Semangka", 30],['11','Asparagus', 2]],
     [["00", "Roti", 265], ["01", "Kentang", 87], ["10", "Jagung", 86], ["11", "Ketela", 159]],
     [["00", "Ikan", 206], ["01", "Daging Sapi", 143], ["10", "Ayam", 239], ["11", "Telur", 155]]
 ])
